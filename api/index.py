@@ -1,22 +1,44 @@
-# from http.server import BaseHTTPRequestHandler
-# from cowpy import cow
+#!/usr/bin/python
+#
+# Copyright (C) 2011
+#
+# Douglas Schilling Landgraf <dougsland@redhat.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-# class handler(BaseHTTPRequestHandler):
+from snack import *
 
-#     def do_GET(self):
-#         self.send_response(200)
-#         self.send_header('Content-type','text/plain')
-#         self.end_headers()
-#         message = cow.Cowacter().milk('Hello from Python from a Serverless Function!')
-#         self.wfile.write(message.encode())
-#         return
+screen = SnackScreen()
 
-from flask import Flask, Response
-app = Flask(__name__)
+lbox = Listbox(height = 40, width = 90, returnExit = 1)
+lbox.append("Fedora", 1)
+lbox.append("Red Hat Enterprise Linux", 2)
+lbox.append("Ubuntu", 3)
+lbox.append("Slackware", 4)
+lbox.append("CentOS", 5)
 
-@app.route('/', methods=['GET'])
-def hello_world():
-    return Response("Mele babu ne thana thaya")
+grid = GridForm(screen, "Select your favorite ditro", 1, 1)
+grid.add(lbox, 0, 0)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+result = grid.runOnce()
+
+screen.finish()
+
+#print "listbox:", lbox.current()
+if lbox.current() == 1:
+	print "Selected Fedora!"
+elif lbox.current() == 2:
+	print "Selected Red Hat Enterprise Linux!"
+elif lbox.current() == 3:
+	print "Selected Ubuntu!"
+elif lbox.current() == 4:
+	print "Selected Slackware!"
+elif lbox.current() == 5:
+	print "Selected CentOS!"
