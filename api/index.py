@@ -15,5 +15,5 @@ from flask import Flask, Response
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
-def hello():
-    return Response("<h1>Flask</h1><p>You visited", mimetype="text/html")
+def hello_world():
+    return jsonify({'message' : 'Hello, World!'})
